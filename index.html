@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="How-to-differentiate-integer-pointer-and-integer-array-pointer : 我的第一篇cs心得体会记录">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>How-to-differentiate-integer-pointer-and-integer-array-pointer</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/hanglstanf/how-to-differentiate-integer-pointer-and-integer-array-pointer">View on GitHub</a>
+
+          <h1 id="project_title">How-to-differentiate-integer-pointer-and-integer-array-pointer</h1>
+          <h2 id="project_tagline">我的第一篇cs心得体会记录</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/hanglstanf/how-to-differentiate-integer-pointer-and-integer-array-pointer/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/hanglstanf/how-to-differentiate-integer-pointer-and-integer-array-pointer/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <p>I was trying to differentiate integer pointer and integer array pointer and here's the code that I am using as an example:</p>
+
+<pre><code>#define ZLEN 5
+
+typedef int zipdig[ZLEN] ;
+#define UCOUNT 3
+typedef int (*row5_pt)[ZLEN];
+
+int main(int argc, char *argv[]) {
+    zipdig cmu = {8, 5, 2, 1, 3};
+    zipdig mit = {0, 2, 1, 3, 9};
+    zipdig ucb = {9, 4, 7, 2, 0};
+
+    int *univ[UCOUNT] = {mit, cmu, ucb};
+    int result1 = *univ[1];
+
+    row5_pt pt[UCOUNT] = {&amp;mit;, &amp;cmu;, &amp;ucb;};
+
+    int result2 = (*pt[1])[1];
+
+    printf("\nresult is %d \n", result1);
+    printf("\nthe size of dereferenced univ is %lu bytes \n", sizeof(*univ[1]));
+
+    printf("\nresult is %d \n", result2);
+    printf("\nthe size of dereferenced pt is %lu bytes \n", sizeof(*pt[1]));
+
+    return 0;
+}
+</code></pre>
+
+<p>At first I am confused at the following two assignment:
+    int *univ[UCOUNT] = {mit, cmu, ucb};
+    row5_pt pt[UCOUNT] = {&amp;mit;, &amp;cmu;, &amp;ucb;};</p>
+
+<p>here univ is an array of 3 integer pointers, and pt is an array of pointers that point to a 5-element int array. And my confusion is that in the first assignment, mit, cmu and ucb, these array identifiers are regarded as pointers, but when it comes to second assignment, why mit, cmu and ucb are regarded as array, not pointers?</p>
+
+<p>Later I realized that this is due to the different pointer type that I use: the first assignment, the element of univ is an integer pointer, and mit, cmu, ucb are exactly regarded as integer pointer, but for second assignment, the element of pt is a pointer pointing to array, not integers, thus we could not directly use mit, cmu or ucb but have to use their address instead.</p>
+
+<p>see more : <a href="http://stackoverflow.com/questions/1461432/what-is-array-decaying">what is array decaying?</a></p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">How-to-differentiate-integer-pointer-and-integer-array-pointer maintained by <a href="https://github.com/hanglstanf">hanglstanf</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
