@@ -1,0 +1,1 @@
+# how-to-differentiate-integer-pointer-and-integer-array-pointer
